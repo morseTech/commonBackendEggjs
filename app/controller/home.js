@@ -8,8 +8,7 @@ class HomeController extends Controller {
     const { ctx, app } = this;
     console.log(app.model.models);
     ctx.debug(ctx.model.models);
-    ctx.success([]);
-    // ctx.success('Common Backend Framework by egg.js');
+    ctx.success('Common Backend Framework by egg.js');
   }
 
 }

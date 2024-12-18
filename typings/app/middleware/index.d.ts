@@ -5,12 +5,12 @@
 import 'egg';
 import ExportAuth = require('../../../app/middleware/auth');
 import ExportException = require('../../../app/middleware/exception');
-import ExportUpload = require('../../../app/middleware/upload');
+import ExportUploadValidate = require('../../../app/middleware/uploadValidate');
 
 declare module 'egg' {
   interface IMiddleware {
     auth: typeof ExportAuth;
     exception: typeof ExportException;
-    upload: typeof ExportUpload;
+    uploadValidate: typeof ExportUploadValidate;
   }
 }

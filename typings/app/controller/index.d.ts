@@ -4,9 +4,13 @@
 
 import 'egg';
 import ExportHome = require('../../../app/controller/home');
+import ExportUploadIndex = require('../../../app/controller/upload/index');
 
 declare module 'egg' {
   interface IController {
     home: ExportHome;
+    upload: {
+      index: ExportUploadIndex;
+    }
   }
 }

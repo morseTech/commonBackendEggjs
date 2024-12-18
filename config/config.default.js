@@ -59,10 +59,10 @@ module.exports = appInfo => {
 
   // 上传配置
   userConfig.upload = {
-    tokenExpiresIn: 60 * 60 * 24 * 365,
+    tokenExpiresIn: 20, // 上传token有效期 (秒)
   };
   userConfig.multipart = {
-    fileSize: '10mb',
+    fileSize: '10mb', // 上传文件大小限制
     mode: 'stream',
   };
 
