@@ -41,20 +41,24 @@ module.exports = {
     body.code = 200;
     if (data === null || typeof data === 'undefined') {
       body.code = 404;
-    }
-    if (Array.isArray(data)) {
+      data = [];
+    } else if (Array.isArray(data)) {
       body.length = data.length;
       if (data.length === 0) body.code = 404;
+    } else {
+      body.length = 1;
+      data = [ data ];
     }
     body.data = data;
     this.body = body;
   },
 
   // 返回空响应
-  none(data) {
+  empty() {
     this.body = {
       code: 404,
-      data,
+      length: 0,
+      data: [],
     };
   },
 
@@ -80,6 +84,7 @@ module.exports = {
       throw errors;
     } else {
       const err = new Error();
+      err.status = 500;
       err.message = '操作失败' || errors.message || errors.msg;
       throw err;
     }
