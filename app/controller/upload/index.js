@@ -4,8 +4,8 @@ const { Controller } = require('egg');
 
 class UploadController extends Controller {
 
-  // 许可上传 有效期120秒
-  async permission_upload(filesInfo) {
+  // 许可上传
+  async _permission_upload(filesInfo) {
     const { ctx, config, app } = this;
     // 判断每一个文件是否超限
     const files = {};
@@ -21,7 +21,7 @@ class UploadController extends Controller {
   }
 
   // 上传文件
-  async upload(files) {
+  async _upload(files) {
     const { ctx, config } = this;
     const fs = require('fs');
     const path = require('path');
@@ -79,17 +79,16 @@ class UploadController extends Controller {
 
   // 文章图片上传预检
   async getUploadToken(ctx) {
-    // 前端发送请求参数upload_info需要通过头部携带
-    const { upload_files = '' } = ctx.header;
-    if (!upload_files) ctx.authFailed({ msg: '上传请求接口限制!', code: 401 });
-    const filesInfo = JSON.parse(upload_files);
-    ctx.success({ token: await this.permission_upload(filesInfo) });
+    // 前端发送请求参数files
+    const { files } = ctx.request.body;
+    if (!files || !files[0].filename || !files[0].filesize) ctx.authFailed({ msg: '上传请求接口限制!', code: 401 });
+    ctx.success({ token: await this._permission_upload(files) });
   }
 
   // 文件上传
   async transfer(ctx) {
     const uploads = ctx.uploads;
-    const post = await this.upload(uploads);
+    const post = await this._upload(uploads);
     ctx.success(post);
   }
 
