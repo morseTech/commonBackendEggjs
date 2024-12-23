@@ -6,7 +6,6 @@ class HomeController extends Controller {
 
   async index() {
     const { ctx } = this;
-    console.log(this.app.cache);
     ctx.success('Common Backend Framework by egg.js');
   }
 
