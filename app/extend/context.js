@@ -12,7 +12,7 @@ module.exports = {
     const stack = err.stack;
     Error.stackTraceLimit = origLimit;
     const filename = stack.split('\n')[2];
-    console.debug('<<<---Debug START--->>>')
+    console.debug('<<<---Debug START--->>>');
     console.debug(filename);
     for (let i = 0; i < arguments.length; i++) {
       console.debug(typeof arguments[i]);

@@ -5,13 +5,13 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
     },
     password: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      comment: "用户确认标识链所属和操作权限的密码"
-    }
+      comment: '用户确认标识链所属和操作权限的密码',
+    },
   }, {
     sequelize,
     tableName: 'identifierchain',
@@ -19,13 +19,13 @@ module.exports = function(sequelize, DataTypes) {
     freezeTableName: true,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "id" },
-        ]
+          { name: 'id' },
+        ],
       },
-    ]
+    ],
   });
 };

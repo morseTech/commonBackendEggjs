@@ -1,13 +1,13 @@
 'use strict';
-const path = require('path');
+
 class AppBootHook {
   constructor(app) {
     this.app = app;
-    this.app.on('request', ctx => {
-      // 记录收到的请求
-      // ctx.log('收到请求：', ctx.request.header.host + ctx.request.url);
-      // ctx.debug();
-    });
+    // this.app.on('request', ctx => {
+    //   // 记录收到的请求
+    //   console.log('收到请求：', ctx.request.header.host + ctx.request.url);
+    //   // ctx.debug();
+    // });
     this.app.on('response', ctx => {
       // ctx.starttime 是由框架设置的
       ctx.usedTime = Date.now() - ctx.starttime;
@@ -25,10 +25,6 @@ class AppBootHook {
     // 可以用来加载应用自定义的文件，启动自定义的服务
 
     // 例如：创建自定义应用的示例
-
-    // 加载validate校验规则
-    const validatePath = path.join(this.app.baseDir, './app/validate');
-    this.app.loader.loadToApp(validatePath, 'validate');
   }
 
   async willReady() {

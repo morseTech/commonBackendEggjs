@@ -5,38 +5,38 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
     },
     chainId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      comment: "所在标识链的序号",
+      comment: '所在标识链的序号',
       references: {
         model: 'identifierchain',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     category: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      comment: "标识卡的类别"
+      comment: '标识卡的类别',
     },
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
-      comment: "标识卡的内容"
+      comment: '标识卡的内容',
     },
     image: {
       type: DataTypes.STRING(255),
       allowNull: true,
-      comment: "标识卡的图片信息"
+      comment: '标识卡的图片信息',
     },
     isPublic: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: 0,
-      comment: "是否接受公开查询"
-    }
+      comment: '是否接受公开查询',
+    },
   }, {
     sequelize,
     tableName: 'identifiercard',
@@ -44,20 +44,20 @@ module.exports = function(sequelize, DataTypes) {
     freezeTableName: true,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "id" },
-        ]
+          { name: 'id' },
+        ],
       },
       {
-        name: "chainId",
-        using: "BTREE",
+        name: 'chainId',
+        using: 'BTREE',
         fields: [
-          { name: "chainId" },
-        ]
+          { name: 'chainId' },
+        ],
       },
-    ]
+    ],
   });
 };

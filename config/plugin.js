@@ -13,11 +13,6 @@ module.exports = {
     enable: true,
     package: 'egg-validate',
   },
-  // redis
-  redis: {
-    enable: true,
-    package: 'egg-redis',
-  },
   // jwt用于token处理
   jwt: {
     enable: true,

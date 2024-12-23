@@ -1,38 +1,35 @@
-module.exports = app => {
-  const { validator } = app;
-  const rules = [
-    // 用户名规则
-    {
-      name: 'username',
-      valid: /^([0-9a-zA-Z\u4e00-\u9fa5]{3,20})$/,
-      message: '长度须是3到20之间',
-    },
-    // 密码规则
-    {
-      name: 'password',
-      valid: /^[A-Za-z0-9!_-]{6,20}$/,
-      message: '密码必须包含6-20个英文字母、数字和!_-特殊符号',
-    },
-    // 正整数规则
-    {
-      name: 'absInteger',
-      valid: /^[1-9]\d*$/,
-      message: '必须是正整数',
-    },
-    // 浮点数规则
-    {
-      name: 'float',
-      valid: /^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/,
-      message: '必须是浮点数',
-    },
-  ];
+'use strict';
 
-  rules.forEach(myrule => {
-    const { name, valid, message } = myrule;
-    validator.addRule(name, (rule, value) => {
-      if (!valid.test(value)) {
-        return message;
-      }
-    });
-  });
+// 通用规则片段
+const commonRules = {
+  id: { type: 'string', format: /^[0-9a-fA-F]{24}$/ },
+  page: { type: 'number', min: 1, default: 1 },
+  pageSize: { type: 'number', min: 1, max: 100, default: 10 },
+};
+
+// 具体业务规则
+module.exports = {
+
+  // 创建用户规则
+  create: {
+    name: { type: 'string', required: true, min: 2, max: 20 },
+    password: { type: 'string', required: true, min: 6, max: 20 },
+    email: { type: 'email', required: true },
+    role: { type: 'enum', values: [ 'admin', 'user' ], default: 'user' },
+  },
+
+  // 更新用户规则
+  update: {
+    id: commonRules.id,
+    username: { type: 'string', min: 2, max: 20 },
+    email: { type: 'email' },
+  },
+
+  // 查询列表规则
+  list: {
+    page: commonRules.page,
+    pageSize: commonRules.pageSize,
+    role: { type: 'enum', values: [ 'admin', 'user' ] },
+  },
+
 };

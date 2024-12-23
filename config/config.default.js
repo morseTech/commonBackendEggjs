@@ -84,9 +84,9 @@ module.exports = appInfo => {
   };
 
   // redis配置
-  userConfig.redis = {
-    client: require('../libs/redis/redis.config'),
-  };
+  // userConfig.redis = {
+  //   client: require('../libs/redis/redis.config'),
+  // };
 
   // orm设置
   userConfig.sequelize = require('../libs/sequelize-db/db.config');
