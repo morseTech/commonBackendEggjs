@@ -134,3 +134,5 @@ private.*
 */private/
 run/
 */upload/
+router.js
+app/controller/
