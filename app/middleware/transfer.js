@@ -4,8 +4,7 @@ module.exports = (options, app) => {
   // 基于jwt实现的上传的token鉴权
   return async (ctx, next) => {
     // 获取token
-    const { upload_token = '' } = ctx.header;
-    const uptk = upload_token;
+    const uptk = ctx.header['upload-token'] || false;
     if (!uptk) ctx.authFailed({ msg: '您没有权限访问上传接口!', code: 401 });
 
     // 验证upload token的有效性
@@ -19,6 +18,6 @@ module.exports = (options, app) => {
 
     // 把上传信息信息挂载到全局ctx上
     ctx.uploads = upload;
-    await next(options);
+    await ctx.service.common.transfer();
   };
 };

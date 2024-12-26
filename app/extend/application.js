@@ -29,7 +29,7 @@ module.exports = {
   validate(rulePath, params) {
     const parts = rulePath.split('.');
     let rule = this.rules;
-    
+
     // 逐层访问规则对象
     for (const part of parts) {
       rule = rule[part];

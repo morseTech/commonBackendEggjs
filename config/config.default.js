@@ -77,10 +77,8 @@ module.exports = appInfo => {
   };
   // 鉴权jwt设置
   userConfig.jwt = {
-    // 密钥
-    secret: 'jielidev',
-    // 有效期（秒）
-    expiresIn: 60 * 60 * 24 * 1000,
+    secret: 'commonBackendEggjs', // 密钥
+    expiresIn: 60 * 60 * 24 * 1000, // 有效期（秒）
   };
 
   // redis配置

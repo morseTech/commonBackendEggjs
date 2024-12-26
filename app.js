@@ -10,7 +10,9 @@ class AppBootHook {
     // });
     this.app.on('response', ctx => {
       // ctx.starttime 是由框架设置的
-      ctx.usedTime = Date.now() - ctx.starttime;
+      console.log(`响应花费 ${Date.now() - ctx.starttime}ms`);
+      console.log(ctx.body);
+      ctx.body.spend = Date.now() - ctx.starttime;
     });
   }
 

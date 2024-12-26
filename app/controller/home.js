@@ -5,8 +5,7 @@ const { Controller } = require('egg');
 class HomeController extends Controller {
 
   async index() {
-    const { ctx } = this;
-    ctx.success('Common Backend Framework by egg.js');
+    await this.service.common.index();
   }
 
   async test() {

@@ -1,5 +1,5 @@
 'use strict';
-
+const path = require('path');
 const { app, assert } = require('egg-mock/bootstrap');
 
 describe('OK test validate parameters', () => {
@@ -7,6 +7,7 @@ describe('OK test validate parameters', () => {
     assert(app.validator);
     assert(app.validate);
     assert(app.rules.user.create);
+    assert(app.validate('user.update', { username: 'test' }));
   });
 
   it('cache 测试', async () => {
@@ -15,22 +16,31 @@ describe('OK test validate parameters', () => {
     assert(await app.cache.get('test') === 'test');
   });
 
-  it('controller 测试 post /test', async () => {
-    return app.httpRequest()
-      .post('/test')
+  it('上传预请求和文件上传 测试', async () => {
+    // 上传预请求
+    const preRes = await app.httpRequest()
+      .post('/upload-pre')
       .send({
-        name: 'commonBackendEggjs',
-        password: '12345678sdfgh',
-        email: '123@123.com',
-        role: 'user',
-      })
-      .expect({
-        code: 200,
-        length: 1,
-        data: [ 'commonBackendEggjs' ],
+        files: [{
+          filename: 'logo.png',
+          filesize: 102400,
+        }],
       })
       .expect(200);
-    // 也可以这样验证
-    // assert(result.status === 200);
+
+    const token = preRes.body.data[0].token;
+    assert(token);
+
+    // 文件上传
+    const filePath = path.join(__dirname, 'fixtures/logo.png');
+    await app.httpRequest()
+      .post('/upload-transfer')
+      .set('Upload-Token', token)
+      .type('multipart/form-data')
+      .attach('file', filePath)
+      .expect(200)
+      .then(response => {
+        assert(response.body.code === 200);
+      });
   });
 });
