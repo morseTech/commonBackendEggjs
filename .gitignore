@@ -130,10 +130,8 @@ dist
 .pnp.*
 
 # private file
-private.*
-*/private/
+.vscode/
+*private/
 run/
-*/upload/
-router.js
-app/controller/
-web/
+app/public/
+

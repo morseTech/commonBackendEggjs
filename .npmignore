@@ -1,0 +1,9 @@
+test/
+run/
+logs/
+private/
+.github/
+.idea/
+coverage/
+*.log
+.DS_Store

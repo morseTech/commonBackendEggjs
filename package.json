@@ -1,8 +1,26 @@
 {
-  "name": "common-backend-eggjs",
+  "name": "cb-egg",
   "version": "1.0.0",
-  "description": "基于eggjs的通用后端开发框架",
-  "private": true,
+  "description": "cb-egg 基于eggjs的通用后端开发框架 common-backend-eggjs",
+  "private": false,
+  "main": "index.js",
+  "files": [
+    "app",
+    "config",
+    "app.js",
+    "agent.js",
+    "lib",
+    "libs"
+  ],
+  "keywords": [
+    "egg",
+    "framework",
+    "egg-framework"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morseTech/commonBackendEggjs.git"
+  },
   "egg": {
     "declarations": true
   },
