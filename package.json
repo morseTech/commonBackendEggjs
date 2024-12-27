@@ -1,5 +1,5 @@
 {
-  "name": "common-eggjs-backend-framework",
+  "name": "common-backend-eggjs",
   "version": "1.0.0",
   "description": "基于eggjs的通用后端开发框架",
   "private": true,
