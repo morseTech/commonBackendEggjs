@@ -4,17 +4,7 @@
 
 const path = require('path');
 const os = require('os');
-const LOCALIP = function() {
-  const networks = os.networkInterfaces();
-  for (const network in networks) {
-    for (const net of networks[network]) {
-      // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
-      if (net.family === 'IPv4' && !net.internal) {
-        return net.address;
-      }
-    }
-  }
-}();
+const { port } = require('../libs/sequelize-db/db.config');
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -39,7 +29,8 @@ module.exports = appInfo => {
   // 配置暴露的IP
   userConfig.cluster = {
     listen: {
-      hostname: LOCALIP,
+      hostname: '127.0.0.1',
+      port: 7001,
     },
   };
 
@@ -67,14 +58,19 @@ module.exports = appInfo => {
   };
 
   // 中间件配置
-  userConfig.middleware = [ 'exception', 'auth' ];
-  // 不需要鉴权的路由
-  userConfig.auth = {
-    allowed: [
-      '/',
-      '*',
-    ],
-  };
+  // userConfig.middleware = [ 'exception', 'auth' ];
+  // config.exception = {
+  //   // 配置项，应用可覆盖
+  //   match: '/',
+  //   env: appInfo.env,
+  // };
+  // // 不需要鉴权的路由
+  // userConfig.auth = {
+  //   allowed: [
+  //     '/',
+  //     '*',
+  //   ],
+  // };
   // 鉴权jwt设置
   userConfig.jwt = {
     secret: 'commonBackendEggjs', // 密钥
@@ -91,9 +87,9 @@ module.exports = appInfo => {
 
   // 静态化配置   访问路径如：http://127.0.0.1:7001/static/images/logo.png
   userConfig.static = {
-    domain: `http://${LOCALIP}:7001`,
+    domain: `http://127.0.0.1:7001`,
     prefix: '/static/',
-    dir: path.join(appInfo.baseDir, './public/upload'), // 这里是当前项目目录下的public/upload
+    dir: path.join(appInfo.baseDir, './app/public/upload'), // 这里是当前项目目录下的public/upload
     dynamic: true, // 如果当前访问的静态资源没有缓存，则缓存静态文件，和`preload`配合使用；
     preload: false,
     maxAge: 31536000, // in prod env, 0 in other envs

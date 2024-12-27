@@ -16,6 +16,12 @@ class AppBootHook {
     // 此时 config 文件已经被读取并合并，但是还并未生效
     // 这是应用层修改配置的最后时机
     // 注意：此函数只支持同步调用
+    // 在应用启动时配置中间件
+    this.app.config.coreMiddleware.push('exception');
+    // 监听错误事件
+    this.app.on('error', (err, ctx) => {
+      ctx.debug(err);
+    });
   }
 
   async didLoad() {
