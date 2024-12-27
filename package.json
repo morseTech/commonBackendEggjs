@@ -42,6 +42,6 @@
     "db2model": "cd libs/sequelize-db && node gen-models.js",
     "model2db": "cd libs/sequelize-db && node gen-database.js"
   },
-  "author": "",
+  "author": "hongfu_zhang@163.com",
   "license": "MIT"
 }
