@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Fixed upload pre-request and tansfer
+- Fixed config setting local and unittest
 
 ## [1.0.3] - 2024-12-23
 

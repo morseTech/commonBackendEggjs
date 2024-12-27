@@ -3,16 +3,12 @@
 class AppBootHook {
   constructor(app) {
     this.app = app;
-    // this.app.on('request', ctx => {
-    //   // 记录收到的请求
-    //   console.log('收到请求：', ctx.request.header.host + ctx.request.url);
-    //   // ctx.debug();
-    // });
+    this.app.on('request', ctx => {
+      ctx.debug('收到请求：', ctx.request.header.host + ctx.request.url);
+    });
     this.app.on('response', ctx => {
       // ctx.starttime 是由框架设置的
-      console.log(`响应花费 ${Date.now() - ctx.starttime}ms`);
-      console.log(ctx.body);
-      ctx.body.spend = Date.now() - ctx.starttime;
+      ctx.debug(`响应花费 ${Date.now() - ctx.starttime}ms`);
     });
   }
 

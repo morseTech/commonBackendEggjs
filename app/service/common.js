@@ -5,7 +5,6 @@ const Service = require('egg').Service;
 class FrameService extends Service {
   async index() {
     const { ctx } = this;
-    ctx.debug(this.app.config.static);
     ctx.success('Common Backend Framework by egg.js');
   }
 

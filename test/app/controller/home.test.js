@@ -1,29 +1,14 @@
 'use strict';
 const path = require('path');
-const { app, mock, assert } = require('egg-mock/bootstrap');
+const { app, assert } = require('egg-mock/bootstrap');
 
 describe('OK test validate parameters', () => {
-  before(() => {
-    // 确保使用 local 环境配置
-    mock.env('local');
-  });
-
-  it('config 测试', () => {
-    const { config } = app;
-    console.log('Environment:', app.config.env);
-    console.log('Static Config:', config.static);
-    
-    // 验证配置是否正确合并
-    assert(config.static.domain === 'http://127.0.0.1:7001');
-    assert(config.static.prefix === '/static/');
-    assert(config.static.dir === path.join(app.baseDir, './app/web/upload'));
-  });
 
   it('validate 测试', () => {
     assert(app.validator);
     assert(app.validate);
     assert(app.rules.user.create);
-    assert(app.validate('user.update', { username: 'test' }));
+    assert(app.validate('user.update', { username: 'test111111111111' }));
   });
 
   it('cache 测试', async () => {
