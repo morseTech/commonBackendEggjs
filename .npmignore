@@ -1,3 +1,6 @@
+app/public/*
+app/router.js
+app/models/*
 test/
 run/
 logs/

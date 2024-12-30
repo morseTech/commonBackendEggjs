@@ -1,6 +1,6 @@
 {
   "name": "cb-egg",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "cb-egg 基于eggjs的通用后端开发框架 common-backend-eggjs",
   "private": false,
   "main": "index.js",
