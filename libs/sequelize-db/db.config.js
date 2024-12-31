@@ -4,6 +4,7 @@ module.exports = {
   // model的存储路径
   modelsPath: '../../app/models',
   // 测试开发数据库
+  enable: true,
   dialect: 'mysql',
   database: 'momlink',
   username: 'hongfu',

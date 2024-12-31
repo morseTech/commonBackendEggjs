@@ -8,11 +8,7 @@ module.exports = {
     enable: true,
     package: 'egg-sequelize',
   },
-  // 内容校验插件
-  validate: {
-    enable: true,
-    package: 'egg-validate',
-  },
+
   // jwt用于token处理
   jwt: {
     enable: true,

@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.0.6] - 2024-12-31
+
+### Fixed
+- Fixed configurations for cache, ORM and their related plugins
 ## [1.0.5] - 2024-12-27
 
 ### Fixed

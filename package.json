@@ -1,6 +1,6 @@
 {
   "name": "cb-egg",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "cb-egg 基于eggjs的通用后端开发框架 common-backend-eggjs",
   "private": false,
   "main": "index.js",
@@ -31,9 +31,9 @@
     "egg-jwt": "^3.1.7",
     "egg-scripts": "^2",
     "egg-sequelize": "^6.0.0",
-    "egg-validate": "^2.0.2",
     "mysql2": "^3.2.4",
     "openai": "^4.33.0",
+    "parameter": "^3.7.0",
     "redis": "^4.7.0",
     "stream-wormhole": "^1.1.0"
   },

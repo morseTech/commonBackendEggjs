@@ -2,7 +2,13 @@
 const path = require('path');
 const { app, assert } = require('egg-mock/bootstrap');
 
-describe('OK test validate parameters', () => {
+describe('开始测试。。。。。。', () => {
+  it('orm 测试', () => {
+    assert(app.Sequelize);
+    assert(app.model);
+    assert(app.model.models);
+    console.log(app.model);
+  });
 
   it('validate 测试', () => {
     assert(app.validator);

@@ -20,7 +20,7 @@ class FrameService extends Service {
       files[i] = f;
       i++;
     });
-    const uptk = app.jwt.sign(files, 'secretKey', { expiresIn: config.upload.tokenExpiresIn });
+    const uptk = app.jwt.sign(files, 'secretKey', { expiresIn: config.multipart.tokenExpiresIn });
     return uptk;
   }
 

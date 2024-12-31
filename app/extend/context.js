@@ -4,6 +4,9 @@ module.exports = {
   get jwt() {
     return this.app.jwt;
   },
+  get validate() {
+    return this.app.validate;
+  },
   // 调试函数
   debug() {
     if (this.app.config.env !== 'local') return true; // 只在本地环境输出

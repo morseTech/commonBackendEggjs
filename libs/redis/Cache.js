@@ -66,4 +66,4 @@ const Cache = class {
   }
 };
 
-module.exports = Cache;
+module.exports = conf.enable ? Cache : undefined;

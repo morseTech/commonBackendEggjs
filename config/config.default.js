@@ -43,23 +43,38 @@ module.exports = appInfo => {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
   };
 
-  // 上传配置
-  config.upload = {
-    tokenExpiresIn: 10, // 上传token有效期 (秒)
-  };
-  config.multipart = {
-    fileSize: '2mb', // 上传文件大小限制
-    mode: 'stream',
-  };
-
   // jwt设置
   config.jwt = {
-    secret: 'commonBackendEggjs', // 密钥
+    secret: 'commonBackendEggjs_V&^%RYI', // 密钥
     expiresIn: 60 * 60 * 24, // 有效期（秒）
   };
 
   // orm设置
-  config.sequelize = require('../libs/sequelize-db/db.config');
+  config.sequelize = Object.assign(require('../libs/sequelize-db/db.config'),
+    { enable: require('./plugin').sequelize.enable });
+
+  // cache设置
+  config.redis = Object.assign(require('../libs/redis/redis.config'), {
+    enable: true,
+  });
+
+  config.validate = {
+    // 转换配置
+    convert: true, // 自动类型转换
+    // 验证配置
+    validateRoot: true, // 校验根对象
+    widelyUndefined: true, // undefined/null 等价
+    // 错误配置
+    throwError: true, // 抛出异常而不是返回错误对象
+  };
+
+  // 上传配置
+  config.multipart = {
+    enable: true,
+    tokenExpiresIn: 3, // 上传token有效期 (秒)
+    fileSize: '2mb', // 上传文件大小限制
+    mode: 'stream',
+  };
 
   // 静态化配置   访问路径如：http://127.0.0.1:7001/static/images/logo.png
   config.static = {
