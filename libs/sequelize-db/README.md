@@ -11,5 +11,5 @@ node gen-models.js
 node gen-database.js
 
 如需手动生成model实例
-const { createModelInstance } = require('./models');
-const models = createModelInstance();
+const { loadToModel } = require('./models');
+const models = loadToModel(app.model);

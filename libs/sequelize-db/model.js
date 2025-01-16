@@ -1,16 +1,17 @@
 'use strict';
 
-const ins = function() {
+const ins = () => {
   const fs = require('fs');
   const path = require('path');
   const Sequelize = require('sequelize');
-  const config = require('./db.config.js');
-  config.host = config.hostname;
+  const conf = require('../../config/config.default.js')();
+  const config = conf?.sequelize || require('./db.config.js');
+
   const db = {};
 
   const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-  const modelsPath = path.join(__dirname, config.modelsPath);
+  const modelsPath = config.modelsPath;
 
   fs
     .readdirSync(modelsPath)
@@ -35,7 +36,4 @@ const ins = function() {
 
 };
 
-
-module.exports = {
-  createModelInstance: ins,
-};
+module.exports = ins;

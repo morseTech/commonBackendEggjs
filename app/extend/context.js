@@ -7,6 +7,9 @@ module.exports = {
   get validate() {
     return this.app.validate;
   },
+  get model() {
+    return this.app.config.sequelize.enable ? this.app.model : undefined;
+  },
   // 调试函数
   debug() {
     if (this.app.config.env !== 'local') return true; // 只在本地环境输出
@@ -51,7 +54,7 @@ module.exports = {
       if (data.length === 0) body.code = 404;
     } else {
       body.length = 1;
-      data = [ data ];
+      data = [data];
     }
     body.data = data;
     this.body = body;

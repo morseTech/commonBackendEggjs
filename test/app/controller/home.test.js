@@ -3,11 +3,29 @@ const path = require('path');
 const { app, assert } = require('egg-mock/bootstrap');
 
 describe('开始测试。。。。。。', () => {
-  it('orm 测试', () => {
-    assert(app.Sequelize);
+  let ctx;
+
+  beforeEach(() => {
+    // 创建测试 ctx
+    ctx = app.mockContext();
+  });
+
+  it('spider 测试', async () => {
+    assert(app.Spider);
+    const spider = await new app.Spider().create();
+    const html = await spider.fetch('https://www.baidu.com');
+    assert(app.Spider.Filter);
+    const filter = new app.Spider.Filter(html)
+    const result = filter.match(/<title>(.*?百度.*?)<\/title>/);
+    assert(result && result.includes('百度'));
+  });
+
+  it('orm 测试', async () => {
     assert(app.model);
-    assert(app.model.models);
-    console.log(app.model);
+    assert(app.model.Sequelize);
+    assert(ctx.model);
+    const cards = await app.model.card.findAll();
+    console.log(cards[0].name);
   });
 
   it('validate 测试', () => {

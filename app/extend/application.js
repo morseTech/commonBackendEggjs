@@ -10,8 +10,11 @@ const VALIDATE = Symbol('Application#validate');
 
 const CACHE = Symbol('Application#cache');
 
+const ORM = Symbol('Application#ORM');
 
-module.exports = {
+const SPIDER = Symbol('Application#SPIDER');
+
+const extension = {
 
   get validator() {
     if (!this[VALIDATOR]) {
@@ -60,17 +63,49 @@ module.exports = {
     }
     return this[VALIDATE];
   },
-
-  /**
-   * 缓存实例
-   * @property {Object} cache 缓存操作对象
-   * @return {Cache} 返回缓存实例
-   */
-  get cache() {
-    if (!this[CACHE]) {
-      const Cache = require(path.join(this.baseDir, './libs/redis/Cache.js'));
-      this[CACHE] = new Cache();
-    }
-    return this[CACHE];
-  },
 };
+
+const config = require('../../config/config.default')();
+
+// 根据配置添加 cache
+if (config.redis?.enable) {
+  Object.defineProperty(extension, 'cache', {
+    get() {
+      if (!this[CACHE]) {
+        const Cache = require(path.join(this.baseDir, './libs/redis/Cache.js'));
+        this[CACHE] = new Cache();
+      }
+      return this[CACHE];
+    },
+  });
+}
+
+// 根据配置添加 model
+if (config.sequelize?.enable) {
+  Object.defineProperty(extension, 'model', {
+    get() {
+      if (!this[ORM]) {
+        const models = require(path.join(this.baseDir, './libs/sequelize-db/model.js'));
+        this[ORM] = models();
+      }
+      return this[ORM];
+    },
+  });
+}
+
+// 根据配置添加 spider
+if (config.sequelize?.enable) {
+  Object.defineProperty(extension, 'Spider', {
+    get() {
+      if (!this[SPIDER]) {
+        const spider = require(path.join(this.baseDir, './libs/spider/Spider.js'));
+        spider.Filter = require(path.join(this.baseDir, './libs/spider/HtmlFilter.js'));
+        this[SPIDER] = spider;
+      }
+      return this[SPIDER];
+    },
+  });
+}
+
+module.exports = extension;
+

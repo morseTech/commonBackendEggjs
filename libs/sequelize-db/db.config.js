@@ -7,8 +7,9 @@ module.exports = {
   enable: true,
   dialect: 'mysql',
   database: 'momlink',
-  username: 'hongfu',
+  username: 'root',
   password: '123456',
+  host: '127.0.0.1',
   hostname: '127.0.0.1',
   port: '3306',
   // 是否创建新表

@@ -3,9 +3,10 @@
 'use strict';
 
 const path = require('path');
+const { enable } = require('../libs/redis/redis.config');
 const HOST = '127.0.0.1';
 const PORT = 7001;
-const UPLOAD_DIR = './app/public/upload';
+const UPLOAD_DIR = '../app/public/upload';
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -17,7 +18,7 @@ module.exports = appInfo => {
    **/
   const config = exports = {};
 
-  config.keys = appInfo.name + '_0964776560948769_6748758';
+  config.keys = '_cbegg_0964776560948769_6748758';
 
   config.logger = {
     level: 'OFF', // log level
@@ -50,13 +51,46 @@ module.exports = appInfo => {
   };
 
   // orm设置
-  config.sequelize = Object.assign(require('../libs/sequelize-db/db.config'),
-    { enable: require('./plugin').sequelize.enable });
+  config.sequelize = {
+    // model的存储路径
+    modelsPath: path.join(__dirname, '../app/model'),
+    // 测试开发数据库
+    enable: true,
+    dialect: 'mysql',
+    database: 'momlink',
+    username: 'hongfu',
+    password: '123456',
+    host: '127.0.0.1',
+    hostname: '127.0.0.1',
+    port: '3306',
+    // 是否创建新表
+    sync: true,
+    // 中国时区
+    timezone: '+08:00',
+    // 个性化配置
+    define: {
+      // 取消数据表名复数
+      freezeTableName: true,
+      // 自动写入时间戳 created_at updated_at
+      timestamps: false,
+      // 字段生成软删除时间戳 deleted_at
+      paranoid: false,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+      deletedAt: 'deleted_at',
+      // 所有驼峰命名格式化
+      underscored: false,
+    },
+  };
 
   // cache设置
-  config.redis = Object.assign(require('../libs/redis/redis.config'), {
-    enable: true,
-  });
+  config.redis = {
+    enable: true, // 是否加载cache
+    port: 6379,
+    host: '127.0.0.1',
+    password: 'auth',
+    db: 0,
+  };
 
   config.validate = {
     // 转换配置
@@ -80,11 +114,16 @@ module.exports = appInfo => {
   config.static = {
     domain: `http://${HOST}:${PORT}`,
     prefix: '/static/',
-    dir: path.join(appInfo.baseDir, UPLOAD_DIR), // 上传文件本地路径
+    dir: path.join(__dirname, UPLOAD_DIR), // 上传文件本地路径
     dynamic: true, // 如果当前访问的静态资源没有缓存，则缓存静态文件，和`preload`配合使用；
     preload: false,
     maxAge: 31536000, // in prod env, 0 in other envs
     buffer: true, // in prod env, false in other envs
+  };
+
+  // spider配置
+  config.spider = {
+    enable: true,
   };
 
   // config.private = require('../private/config.js');

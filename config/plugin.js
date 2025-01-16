@@ -3,12 +3,6 @@
 /** @type Egg.EggPlugin */
 module.exports = {
 
-  // orm插件
-  sequelize: {
-    enable: true,
-    package: 'egg-sequelize',
-  },
-
   // jwt用于token处理
   jwt: {
     enable: true,

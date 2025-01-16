@@ -1,7 +1,7 @@
 'use strict';
 const redis = require('redis');
-const conf = require('./redis.config.js');
-conf.hostname = conf.host;
+const config = require('../../config/config.default.js');
+const conf = config?.redis || require('./redis.config.js');
 
 
 const Cache = class {
@@ -9,7 +9,7 @@ const Cache = class {
     if (!Cache.client) {
       // 连接 Redis
       // const client = redis.createClient({ host: conf.hostname, port: conf.port });
-      const client = redis.createClient({ url: `redis://${conf.hostname}:${conf.port}` });
+      const client = redis.createClient({ url: `redis://${conf.host}:${conf.port}` });
 
       client.on('error', function(error) {
         console.error(error);
@@ -66,4 +66,4 @@ const Cache = class {
   }
 };
 
-module.exports = conf.enable ? Cache : undefined;
+module.exports = Cache;

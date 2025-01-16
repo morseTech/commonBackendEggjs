@@ -1,31 +1,36 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('identifierchain', {
+  return sequelize.define('category', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
     },
-    password: {
-      type: DataTypes.STRING(255),
+    platform: {
+      type: DataTypes.STRING(40),
       allowNull: false,
-      comment: '用户确认标识链所属和操作权限的密码',
+      comment: "平台"
     },
+    category: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      comment: "分类"
+    }
   }, {
     sequelize,
-    tableName: 'identifierchain',
+    tableName: 'category',
     timestamps: false,
     freezeTableName: true,
     indexes: [
       {
-        name: 'PRIMARY',
+        name: "PRIMARY",
         unique: true,
-        using: 'BTREE',
+        using: "BTREE",
         fields: [
-          { name: 'id' },
-        ],
+          { name: "id" },
+        ]
       },
-    ],
+    ]
   });
 };

@@ -1,14 +1,15 @@
 'use strict';
 const redis = require('redis');
-const conf = require('./redis.config.js');
+const config = require('../../config/config.default.js');
+const conf = config?.redis || require('./redis.config.js');
 const chanelListener = {};
 const tasks = {};
 const Queue = class {
   constructor() {
     if (!Queue.clientP || !Queue.clientS) {
       // 连接 Redis
-      const clientP = redis.createClient({ host: conf.hostname, port: conf.port });
-      const clientS = redis.createClient({ host: conf.hostname, port: conf.port });
+      const clientP = redis.createClient({ host: conf.host, port: conf.port });
+      const clientS = redis.createClient({ host: conf.host, port: conf.port });
 
       clientP.on('error', function(error) {
         console.error('Publish error:', error);
