@@ -18,6 +18,8 @@ describe('开始测试。。。。。。', () => {
     const filter = new app.Spider.Filter(html)
     const result = filter.match(/<title>(.*?百度.*?)<\/title>/);
     assert(result && result.includes('百度'));
+    const result1 = filter.find({ selector: 'img.index-logo-src', attr: 'src' });
+    assert(result1.indexOf('//www.baidu.com/img') > -1);
   });
 
   it('orm 测试', async () => {
